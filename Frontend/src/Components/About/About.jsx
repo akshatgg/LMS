@@ -27,7 +27,10 @@ function About() {
           </div>
 
 
-          <div className="flex justify-center items-center">
+
+
+
+          <div className="flex justify-center items-center mt-[4%]">
             <div>
               <svg
                 className="w-6 h-6 text-gray-500"
