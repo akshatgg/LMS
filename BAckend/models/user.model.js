@@ -1,6 +1,7 @@
 import { Schema, model } from "mongoose";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+
 const userSchema = new Schema({
     name: {
         type: String,
@@ -28,7 +29,7 @@ const userSchema = new Schema({
         maxlength: [50, 'Password cannot exceed 50 characters'],
         trim: true
     },
-    avator: {
+    avatar: {
         public_id: {
             type: String,
         },
@@ -38,45 +39,39 @@ const userSchema = new Schema({
     },
     forgotPasswordToken: {
         type: String
-      },
-      forgotPasswordExpiryDate: {
+    },
+    forgotPasswordExpiryDate: {
         type: Date
-      },
-      role:{
-        type:String,
-        enum:['USER','ADMIN'],
-        default:'USER'
-      }
-
-
-
-
-})
-
+    },
+    role: {
+        type: String,
+        enum: ['USER', 'ADMIN'],
+        default: 'USER'
+    }
+});
 
 userSchema.pre('save', async function (next) {
-    if ((!this.isModified('password')) || (!this.isModified('confirmpass'))) {
-      return next();
+    if (!this.isModified('password') || !this.isModified('confirmpass')) {
+        return next();
     }
     try {
-      this.password = bcrypt.hash(this.password, 10);
-      this.confirmpass = bcrypt.hash(this.confirmpass, 10);
-  
-      return next();
+        this.password = await bcrypt.hash(this.password, 10);
+        this.confirmpass = await bcrypt.hash(this.confirmpass, 10);
+        return next();
     } catch (error) {
-      return next(error);
+        return next(error);
     }
-  });
+});
 
-  userSchema.methods = {
-    generateJWTToken:function() {
-      return jwt.sign(
-        { id: this._id, email: this.email , subscription:this.subscription, role:this.role},
-        process.env.JWT_SECRET,
-        { expiresIn: process.env.JWT_expiry }
-      );
+userSchema.methods = {
+    generateJWTToken: function () {
+        return jwt.sign(
+            { id: this._id, email: this.email, role: this.role },
+            process.env.JWT_SECRET,
+            { expiresIn: process.env.JWT_expiry }
+        );
     }
-  };
+};
 
-const User = model('user', userSchema);
+const User = model('User', userSchema);
 export default User;

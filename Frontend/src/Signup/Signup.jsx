@@ -1,4 +1,3 @@
-"use client";
 
 import { Checkbox, FormControlLabel } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -24,48 +23,40 @@ const Signup = () => {
     sessionStorage.setItem("login", JSON.stringify(!loginstate));
   };
 
-  const handle =async () =>{
-    if(!email && !password && !confirmpass && !username && !number){
-      alert("fill every field");
-        seterror("please fill every fields");
-        return;
+  const handle = async () => {
+    if (!email || !password || !confirmpass || !username || !number) {
+      alert("Please fill every field");
+      seterror("Please fill every field");
+      return;
     }
-    
-    try{
-      const userdata ={
-        email:email,
-        password:password,
-        confirmpass:confirmpass,
-        username:username,
-        number:number,
-        name:name,
+  
+    try {
+      const userdata = {
+        email: email,
+        password: password,
+        confirmpass: confirmpass,
+        username: username,
+        number: number,
+        name: name,
       };
-      
-      const response = await axios.post("/api/auth/signup", userdata)
-      .catch(error => {
-        console.error("Error:", error);
-        // Handle error here
-      });
-
-      if (response && response.status === 400) {
-        alert("login successfull");
-        console.log(userdata);
-        console.log("login successfully");
+  
+      const response = await axios.post("/api/auth/signup", userdata);
+  
+      if (response.status === 201) {
+        alert("Sign up successful");
+        console.log("Sign up successful");
         changelogin();
+      } else {
+        alert("Sign up failed");
+        console.log("Sign up failed");
       }
-      else{
-        console.log("login unsuccessfull");
-      }
+    } catch (error) {
+      console.error("Error:", error);
+      seterror("Error during sign up");
+    }
+  };
+  
     
-     
-    }
-    catch (er) {
-      alert(er);
-    console.error("Error:", er);
-    seterror("Error during login");
-
-    }
-    }
   
 
 

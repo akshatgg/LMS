@@ -1,76 +1,59 @@
-import User from "../models/user.model";
 import apperror from "../utils/error.util";
+import User from "../models/user.model";
 
-const cookieOptions=()=>{
-    maxAge:7*24*60*60*1000
-    httpOnly: true
-    secure:true
-}
+const cookieOptions = {
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+    secure: true
+};
 
-const register = (async (req, res, next) => {
-
+const register = async (req, res, next) => {
     try {
         const { name, email, password, confirmpass } = req.body;
 
         if (!name || !email || !password || !confirmpass) {
-            return next(new apperror('All fiels are required', 400));
+            return next(new apperror('All fields are required', 400));
         }
         if (password !== confirmpass) {
-            return next(new apperror("password and confirmpassword should be same"))
-            };
-        const userexist = await User.findOne({ email });
-        if(userexist){
-            return next(new apperror('Email already exist', 400));
+            return next(new apperror("Password and confirm password should be the same"));
+        }
+        const userExist = await User.findOne({ email });
+        if (userExist) {
+            return next(new apperror('Email already exists', 400));
         }
 
-        const user = User.create({
+        const user = await User.create({
             name,
             email,
             password,
             confirmpass,
-            avator:{
-                public_id:email,
-                secure_url:''
-            }
-        })
-        if(!user){
-            return next(new apperror('User registeration failed'))
-        }
+            avatar: { public_id: email, secure_url: '' }
+        });
 
-        (await user).save();
+        const token = await user.generateJWTToken();
 
-        user.password=undefined;
+        res.cookie('token', token, cookieOptions);
 
-const token=await user.generateJWTToken();
-
-
-res.cookie('token',token,cookieOptions)
-
-
-        res.status(401).json({
+        res.status(201).json({
             success: true,
-            message:"user regstered successfully",
+            message: "User registered successfully",
             user,
         });
+    } catch (error) {
+        return next(new apperror('User registration failed'));
     }
-    catch (e) {
+};
 
-    }
-})
+const login = (req, res) => {
+    // Implement login functionality
+};
 
-const login = ((req, res) => {
+const logout = (req, res) => {
+    // Implement logout functionality
+};
 
-})
-const logout = ((req, res) => {
+const getProfile = (req, res) => {
+    // Implement getProfile functionality
+};
 
-})
-const getProfile = ((req, res) => {
-
-
-})
-export {
-    register,
-    login,
-    logout,
-    getProfile
-}
+export { register, login, logout, getProfile };

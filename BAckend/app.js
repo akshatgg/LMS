@@ -1,32 +1,30 @@
-import cookieParser from "cookie-parser";
-import cors from "cors";
 import express from "express";
-import morgan from "morgan"; // Import morgan module
-import userRoutes from "./routes/user.routes.js"
+import morgan from "morgan";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import userRoutes from "./routes/user.routes.js";
+
 const app = express();
+const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use(cors({
-    origin: [process.env.CLIENT_URL],
+    origin: process.env.CLIENT_URL,
     credentials: true
 }));
-
-
-
-app.use('/api/auth/user',userRoutes);
-
-
-
-
 app.use(cookieParser());
-app.use(morgan('dev')); // Use morgan middleware
+app.use(morgan('dev'));
 
-app.use('/ping', function(req, res) {
-    res.send('/pong'); //for checking//
+app.use('/api/auth/user', userRoutes);
+
+app.use('/ping', (req, res) => {
+    res.send('/pong');
 });
 
 app.all('*', (req, res) => {
     res.status(404).send('OOPS! 404 page not found');
 });
 
-export default app;
+app.listen(PORT, () => {
+    console.log(`App is running on PORT:${PORT}`);
+});
