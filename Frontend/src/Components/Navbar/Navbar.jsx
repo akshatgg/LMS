@@ -7,11 +7,11 @@ import OpenLMSLogo from "../../assets/351264.svg";
 
 function Navbar() {
   const [showButtons, setShowButtons] = useState(false);
-
+ 
   const toggleButtons = () => {
     setShowButtons(!showButtons);
   };
-
+  
   return (
     <nav className="bg-[#1D232A] min-h-[110px]">
       <div className="flex justify-between item">

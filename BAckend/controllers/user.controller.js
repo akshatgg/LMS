@@ -1,5 +1,6 @@
 import User from "../models/user.model";
 import apperror from "../utils/error.util";
+
 const cookieOptions=()=>{
     maxAge:7*24*60*60*1000
     httpOnly: true
