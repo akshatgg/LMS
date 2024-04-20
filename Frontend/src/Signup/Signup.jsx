@@ -22,7 +22,7 @@ const Signup = () => {
   const changelogin = () => {
     sessionStorage.setItem("login", JSON.stringify(!loginstate));
   };
-
+  
   const handle = async () => {
     if (!email || !password || !confirmpass || !username || !number) {
       alert("Please fill every field");
