@@ -40,7 +40,7 @@ const Signup = () => {
         name: name,
       };
   
-      const response = await axios.post("/api/auth/signup", userdata);
+      const response = await axios.post('/api/auth/user/register', userdata);
   
       if (response.status === 201) {
         alert("Sign up successful");

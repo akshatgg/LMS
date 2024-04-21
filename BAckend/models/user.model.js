@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 const userSchema = new Schema({
@@ -28,6 +28,12 @@ const userSchema = new Schema({
         minlength: [6, 'Password should be at least 6 characters long'],
         maxlength: [50, 'Password cannot exceed 50 characters'],
         trim: true
+    },
+    username:{
+        type: String,
+        required: [true, 'username is required'],
+        trim: true,
+        unique: true
     },
     avatar: {
         public_id: {
