@@ -17,7 +17,7 @@ const register = async (req, res, next) => {
         if (password !== confirmpass) {
             return next(new apperror("Password and confirm password should be the same"));
         }
-        const userExist = await User.findOne({ email }); // Adjust timeout period as needed (in milliseconds)
+        const userExist = await User.findOne({ email }); 
         if (userExist) {
             return next(new apperror('Email already exists', 400));
         }
@@ -49,11 +49,15 @@ const register = async (req, res, next) => {
         });
     } catch (error) {
         console.error('User registration error:', error);
-        return next(new apperror('User registration failed'));
+        return next(new apperror('User registration failed',500));
     }
 };
 
-const login = async(req, res) => {
+const login = async(req, res,next) => {
+
+
+
+    try{
     const{email,password}=req.body;
     if(!email || !password){
         return next(new apperror('All fields ae required',400))
@@ -66,14 +70,47 @@ const login = async(req, res) => {
     if(!user || !user.comparePassword(password)){
         return next(new apperror('Email or password does not match',400))
     }
+    const token=await user.generateJWTToken();
+    user.password=undefined;
+    res.cookie('token',token,cookieOptions)
+    res.status(200).json({
+        success:true,
+        message:'user login successfully',
+        user,
+    })
+}
+catch(error){
+    return next(new apperror(error.message,500))
+}
+
 };
 
-const logout = (req, res) => {
-    // Implement logout functionality
+const logout = (req, res,next) => {
+   res.cookie('tooken',null,{
+    secure:true,
+    maxAge:0,
+    httpOnly:true
+   })
+   res.status(200).json({
+    success: true,
+    message: "Logged out"
+});
 };
 
-const getProfile = (req, res) => {
-    // Implement getProfile functionality
-};
+const getProfile = async (req, res,next) => {
+    try{
+     const userId=req.user.id;
+     const user=await User.findById(userId)
+     res.status(200).json({
+        success: true,
+        message: "user details",
+        user,
+    });
+
+}
+  catch(e){
+      return next(new apperror('Failed to fetch data',500))
+  }
+}
 
 export { register, login, logout, getProfile };
