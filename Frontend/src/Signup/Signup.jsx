@@ -8,6 +8,9 @@ import  { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import animation from "../assets/Animation - 1712774736687.json";
+
+
+
 const Signup = () => {
   const [error, seterror] = useState("");
   const [email, setemail] = useState("");
@@ -53,6 +56,7 @@ const Signup = () => {
     } catch (error) {
       console.error("Error:", error);
       seterror("Error during sign up");
+      alert(error);
     }
   };
   

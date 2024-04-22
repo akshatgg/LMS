@@ -43,6 +43,9 @@ const userSchema = new Schema({
             type: String,
         }
     },
+    number: {
+      type: Number,
+    },
     forgotPasswordToken: {
         type: String
     },
@@ -73,15 +76,13 @@ userSchema.methods = {
     generateJWTToken: function () {
         return jwt.sign(
             { id: this._id, email: this.email, role: this.role },
-            process.env.JWT_SECRET,
-            { expiresIn: process.env.JWT_expiry }
+            process.env.jwt_SECRET,
+            { expiresIn: '3d' }
         );
+    },
+    comparePassword: async function (plainTextPassword) {
+        return await bcrypt.compare(plainTextPassword, this.password);
     }
-}
-// comparePassword: async function(plainTextPassword) {
-//     return await bcrypt.compare(plainTextPassword, this.password);
-// }
-
-
+};
 const User = model('User', userSchema);
 export default User;

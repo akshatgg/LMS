@@ -1,6 +1,7 @@
 import apperror from "../utils/error.util.js";
 import User from "../models/user.model.js";
 import JWT from "jsonwebtoken";
+import emailvalidator from "email-validator";
 
 const cookieOptions = {
     maxAge: 7 * 24 * 60 * 60 * 1000,
@@ -10,23 +11,28 @@ const cookieOptions = {
 
 const register = async (req, res, next) => {
     try {
-        const { name, email, password, confirmpass,username } = req.body;
+        const { name, email, password, confirmpass,username,number } = req.body;
 
-        if (!name || !email || !password || !confirmpass) {
+        if (!name || !email || !password || !confirmpass || !username || !number) {
             return next(new apperror('All fields are required', 400));
         }
         if (password !== confirmpass) {
-            return next(new apperror("Password and confirm password should be the same"));
+            return next(new apperror("Password and confirm password should be the same",400));
         }
         const userExist = await User.findOne({ email }); 
         if (userExist) {
             return next(new apperror('Email already exists', 400));
+        }
+        const validemail = emailvalidator.validate(email);
+        if (!validemail) {
+            return next(new apperror('Email is not in perfect format' ,400));
         }
         
         const user = await User.create({
             name,
             email,
             password,
+            number,
             confirmpass,
             username,
             avatar: { public_id: email, secure_url: '' }
@@ -39,8 +45,8 @@ const register = async (req, res, next) => {
         await user.save();
         console.log(name,password,email,username);
         user.password=undefined;
-        const token = JWT.sign({ userID: user._id }, process.env.jwt_SECRET, { expiresIn: '3d' })
 
+        const token = await user.generateJWTToken();
         res.cookie('token', token, cookieOptions);
 
         res.status(201).json({
@@ -69,9 +75,11 @@ const login = async(req, res,next) => {
     if(!user || !user.comparePassword(password)){
         return next(new apperror('Email or password does not match',400))
     }
-    const token=await user.generateJWTToken();
     user.password=undefined;
-    res.cookie('token',token,cookieOptions)
+
+    const token=await user.generateJWTToken();
+    res.cookie('token',token,cookieOptions);
+
     res.status(200).json({
         success:true,
         message:'user login successfully',
@@ -85,7 +93,7 @@ catch(error){
 };
 
 const logout = (req, res,next) => {
-   res.cookie('tooken',null,{
+   res.cookie('token',null,{
     secure:true,
     maxAge:0,
     httpOnly:true
