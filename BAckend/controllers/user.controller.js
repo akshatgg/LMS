@@ -1,5 +1,6 @@
 import apperror from "../utils/error.util.js";
 import User from "../models/user.model.js";
+import JWT from "jsonwebtoken";
 
 const cookieOptions = {
     maxAge: 7 * 24 * 60 * 60 * 1000,
@@ -21,7 +22,7 @@ const register = async (req, res, next) => {
         if (userExist) {
             return next(new apperror('Email already exists', 400));
         }
-
+        
         const user = await User.create({
             name,
             email,
@@ -38,7 +39,7 @@ const register = async (req, res, next) => {
         await user.save();
         console.log(name,password,email,username);
         user.password=undefined;
-        const token = await user.generateJWTToken();
+        const token = JWT.sign({ userID: user._id }, process.env.jwt_SECRET, { expiresIn: '3d' })
 
         res.cookie('token', token, cookieOptions);
 
@@ -54,9 +55,7 @@ const register = async (req, res, next) => {
 };
 
 const login = async(req, res,next) => {
-
-
-
+                 
     try{
     const{email,password}=req.body;
     if(!email || !password){
@@ -66,7 +65,7 @@ const login = async(req, res,next) => {
     const user=await User.findOne({
         email
     }).select('+password');
-
+     
     if(!user || !user.comparePassword(password)){
         return next(new apperror('Email or password does not match',400))
     }

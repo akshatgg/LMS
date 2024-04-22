@@ -4,11 +4,13 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import userRoutes from "./routes/user.routes.js";
 import { config } from 'dotenv';
+import database from "./config/db.js";
 config(); 
 
 const app = express();
 const PORT = process.env.PORT;
 console.log(PORT)
+database()
 
 
 app.use(express.json());
