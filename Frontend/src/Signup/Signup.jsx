@@ -20,8 +20,9 @@ const Signup = () => {
   const [confirmpass,setconfirmpass]=useState("");
   const [number,setnumber]=useState("");
 
+  sessionStorage.setItem("login", JSON.stringify(false));
 
-  const loginstate = JSON.parse(sessionStorage.getItem("login") || "false");
+  const loginstate = JSON.parse(sessionStorage.getItem("login"));
   const changelogin = () => {
     sessionStorage.setItem("login", JSON.stringify(!loginstate));
   };
