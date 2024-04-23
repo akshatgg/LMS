@@ -2,7 +2,7 @@
 import { Checkbox, FormControlLabel } from "@mui/material";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import axios from "axios";
+import Axios from "axios";
 import Lottie from "lottie-react";
 import  { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -32,7 +32,11 @@ const Signup = () => {
       seterror("Please fill every field");
       return;
     }
-  
+  //  const userExist=await User.findOne{{email}};
+  //  if(userExist){
+  //   alert("User already exist");
+  //   return ;
+  //  }
     try {
       const userdata = {
         email: email,
@@ -43,11 +47,13 @@ const Signup = () => {
         name: name,
       };
   
-      const response = await axios.post('/api/auth/user/register', userdata);
+      const response = await Axios.post('http://localhost:5000/api/auth/user/register', userdata);
   
       if (response.status === 201) {
         alert("Sign up successful");
         console.log("Sign up successful");
+        console.log(response);
+        console.log(userdata);
         changelogin();
       } else {
         alert("Sign up failed");
@@ -159,7 +165,7 @@ const Signup = () => {
                     onChange={(e)=>setconfirmpass(e.target.value)}
                   />
                 </div>
-                ,
+                
                 <div className="flex justify-center">
                   <FormControlLabel
                     control={<Checkbox defaultChecked />}
@@ -167,9 +173,11 @@ const Signup = () => {
                     className="text-white"
                   />
                 </div>
+                <Link to="/Signin">
                 <div className="text-white hover:text-gray-300 flex justify-center">
-                  <Link href="../Signin">Already have an account</Link>{" "}
+                  Already have an account{" "}
                 </div>
+                </Link>
                 <div className="flex justify-center">
                   <button className="bg-[#4CB5F9] hover:bg-[#4c97f9] px-[120px] py-3 rounded-xl text-white font-semibold mt-3" >
                     Sign Up

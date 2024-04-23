@@ -1,7 +1,7 @@
 import { Checkbox, FormControlLabel } from "@mui/material";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import axios from "axios";
+import Axios from "axios";
 import Lottie from "lottie-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -29,9 +29,10 @@ const Signin = () => {
           password: password,
         };
 
-        const response = await axios.post("/api/auth/login", userdata);
-
-        if (response.status == 400) {
+        const response = await Axios.post("http://localhost:5000/api/auth/user/login", userdata);
+         
+        if (response) {
+          console.log(response);
           console.log(userdata);
           console.log("login successfully");
           changelogin();
@@ -57,6 +58,10 @@ const Signin = () => {
         </div>
         <div className="flex justify-center items-center min-w-[800px]">
           <Box
+             onSubmit={(e) => {
+              e.preventDefault(); // Prevent default form submission behavior
+              handle(); // Call your handle function for signup
+            }}
             component="form"
             sx={{
               "& .MuiTextField-root": {
@@ -123,18 +128,18 @@ const Signin = () => {
                 <div className="text-white flex justify-center hover:text-gray-300">
                   Forgot your Password?
                 </div>
+                  <Link to="/Signup">
                 <div className="text-white flex justify-center mt-3 hover:text-gray-300">
-                  <Link href="../Signup">
                     Do not have an account?{" "}
                     <span className="text-[#0095F6] text-[18px] font-semibold">
                       Sign up
                     </span>
-                  </Link>
                 </div>
+                  </Link>
                 <div className="flex justify-center">
                   <button
                     className="bg-[#4CB5F9] px-[120px] py-3 rounded-xl text-white font-semibold mt-3 hover:bg-[#4c97f9]"
-                    onSubmit={handle}
+          
                   >
                     Sign in
                   </button>

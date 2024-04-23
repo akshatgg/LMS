@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 import userRoutes from "./routes/user.routes.js";
 import { config } from 'dotenv';
 import database from "./config/db.js";
-config(); 
+config();
 
 const app = express();
 const PORT = process.env.PORT;
@@ -15,7 +15,7 @@ database()
 
 app.use(express.json());
 app.use(cors({
-    origin: "http://localhost:5173/",
+    origin: [process.env.CLIENT_URL],
     credentials: true
 }));
 app.use(cookieParser());
@@ -32,3 +32,4 @@ app.use('/ping', (req, res) => {
 app.listen(PORT, () => {
     console.log(`App is running on PORT:${PORT}`);
 });
+
