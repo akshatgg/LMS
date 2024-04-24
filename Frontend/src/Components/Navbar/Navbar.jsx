@@ -39,19 +39,23 @@ function Navbar() {
 
   useEffect(() => {
     const profile = document.getElementById("profile");
+
     if (!loginstate) {
       profile.style.display = "none";
+    }
+    else{
+      profile.style.display = "block";
+
     }
   }, [loginstate]);
 
 
   const handle=async()=>{
     const response = await Axios.get('http://localhost:5000/api/auth/user/logout');
-    
-    
     sessionStorage.setItem("login", JSON.stringify(false));
 
-        
+    window.location.reload();
+
     
   }
   return (
