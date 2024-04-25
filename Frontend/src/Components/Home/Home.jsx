@@ -13,7 +13,7 @@ function Home() {
     };
   }, []);
   return (
-    <div className="bg-[#1D232A] h-screen">
+    <div className="bg-[#050505] h-screen">
       <div className="flex justify-center items-center min-h-[700px]">
         <div>
           <p className="text-5xl font-bold text-white font-serif ">

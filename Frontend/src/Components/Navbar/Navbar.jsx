@@ -59,7 +59,7 @@ function Navbar() {
     
   }
   return (
-    <nav className="bg-[#1D232A] min-h-[110px]">
+    <nav className="bg-[#000000] min-h-[110px]">
       <div className="flex justify-between item">
         <div>
           <img
@@ -70,7 +70,7 @@ function Navbar() {
         </div>
         <div>
           <div className="flex justify-between text-white text-[23px] items-center mr-7 mt-2">
-            <Link to="" className="des mx-6">
+            <Link to="/" className="des mx-6">
               Home
             </Link>
             <Link to="/About" className="des mx-6">

@@ -1,15 +1,15 @@
 import { BsInstagram } from "react-icons/bs";
-import { FaFacebook } from "react-icons/fa6";
+import { FaFacebook } from "react-icons/fa";
 import { FiTwitter } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <footer className="bg-[#1D232A] text-white fixed mx-auto right-0 bottom-0 left-0 w-full max-w-[1440px] h-20">
-      <div className="flex justify-around items-center h-full px-4">
+    <footer className="bg-[#000000] text-white fixed left-0 bottom-0 w-full">
+      <div className="flex justify-around items-center h-full px-4 max-w-[1440px] mx-auto">
         <div>Copyright 2024 | All rights reserved</div>
 
-        <div className="flex mr-10">
+        <div className="flex">
           <div className="ml-4 text-2xl hover:text-[#EAB308]">
             <FaFacebook />
           </div>
@@ -20,7 +20,7 @@ function Footer() {
             <FiTwitter />
           </div>
         </div>
-
+        
         <div className="flex flex-col">
           <Link to="/About">
             <div className="underline hover:text-[#EAB308]">About</div>
