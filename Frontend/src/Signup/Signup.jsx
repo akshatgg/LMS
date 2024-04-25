@@ -78,7 +78,7 @@ const Signup = () => {
 
   return (
 
-    <div className="bg-[#1D232A]">
+    <div className="bg-[#000000]">
       <div className="h-screen flex justify-center item-center">
         <div className="flex justify-center">
           <Lottie

@@ -19,15 +19,18 @@ function App() {
         <Route path="/" element={<Navbar />} />
         <Route path="/About" element={<Navbar />} />
         <Route path="/Contact" element={<Navbar />} />
+        <Route path="/Courses" element={<Navbar />} />
+        <Route path="/Signup" element={<Navbar />} />
+        <Route path="/Signin" element={<Navbar />} />
+
+
 
         </Routes>
-        <Routes>
+    
 
+        <Routes>
           <Route path="/Signin" element={<Signin />} />
           <Route path="/Signup" element={<Signup />} />
-        </Routes>
-
-        <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/About" element={<About />} />
           <Route path="/Courses" element={<Courses />} />

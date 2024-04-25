@@ -173,10 +173,10 @@ function Navbar() {
             {showButtons && (
               <>
                 <div className="pl-7 pr-7 rounded-md bg-[#6419E6] hover:bg-[#6419e6d8] text-[18px] mr-3">
-                  <Link to="Signup">Sign up</Link>
+                  <Link to="/Signup">Sign up</Link>
                 </div>
                 <div className="pl-7 pr-7 rounded-md text-[18px]  hover:bg-[#d926a9d8] bg-[#D926A9]">
-                  <Link to="Signin">Sign in</Link>
+                  <Link to="/Signin">Sign in</Link>
                 </div>
               </>
             )}

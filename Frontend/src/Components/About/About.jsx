@@ -127,31 +127,35 @@ function About() {
               <div className="underline">KIET Website</div>
             </div>
 
-            <div className="flex flex-col">
-              <div className="flex flex-col">
-                <div className="text-[#EAB308] text-3xl font-semibold mb-6">
-                  Contact us
-                </div>
-                <div>Taleo Delhi-NCR, Meerut Road (NH-58) Ghaziabad-201206</div>
-                <div>Phone : 8744097774</div>
-                <div> E-mail : itsupport@kiet.edu</div>
-              </div>
 
-              <div className="flex mb-[-20px] mt-3">
-                <div className="ml-4 text-2xl hover:text-[#EAB308]">
-                  <FaFacebook />
-                </div>
-                <div className="ml-4 text-2xl hover:text-[#EAB308]">
-                  <BsInstagram />
-                </div>
-                <div className="ml-4 text-2xl hover:text-[#EAB308]">
-                  <FiTwitter />
-                </div>
+<div className="flex flex-col">
+            <div className="flex flex-col">
+              <div className="text-[#EAB308] text-3xl font-semibold mb-6">
+                Contact us
               </div>
+              <div>Taleo Delhi-NCR, Meerut Road (NH-58) Ghaziabad-201206</div>
+              <div>Phone : 8744097774</div>
+              <div> E-mail : itsupport@kiet.edu</div>
+       
             </div>
+            
+
+
+            <div className="flex mb-[-20px] mt-3">
+<div className="ml-4 text-2xl hover:text-[#EAB308]">
+  <FaFacebook />
+</div>
+<div className="ml-4 text-2xl hover:text-[#EAB308]">
+  <BsInstagram />
+</div>
+<div className="ml-4 text-2xl hover:text-[#EAB308]">
+  <FiTwitter />
+</div>
+</div> 
+</div>  
           </div>
         </footer>
-        <div className="flex justify-center bg-black text-white p-6">
+        <div className="flex justify-center bg-black text-white p-3">
           Copyright will be resolved 2024
         </div>
       </div>
