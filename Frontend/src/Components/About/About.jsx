@@ -18,7 +18,7 @@ function About() {
       prevIndex === Celeberation.length - 1 ? 0 : prevIndex + 1
     );
   };
-
+ 
   return (
     <div className="h-screen bg-[#1D232A]">
       <div className="flex flex-col">
