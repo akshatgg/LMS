@@ -17,7 +17,7 @@ database()
 app.use(express.json());
 app.use(cors({
     origin: [process.env.CLIENT_URL],
-    methods:['POST',"GET"],
+    // methods:['POST',"GET"],
     credentials: true
 }));
 app.use(cookieParser());
@@ -31,7 +31,7 @@ app.use('/ping', (req, res) => {
 
 
 
-app.listen(PORT, () => {
+app.listen(5000, () => {
     console.log(`App is running on PORT:${PORT}`);
 });
 
