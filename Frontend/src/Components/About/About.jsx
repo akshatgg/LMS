@@ -1,3 +1,4 @@
+import AOS from 'aos'
 import { useEffect, useState } from "react";
 import { BsInstagram } from "react-icons/bs";
 import { FaFacebook } from "react-icons/fa";
@@ -25,6 +26,8 @@ function About() {
   };
 
   useEffect(() => {
+AOS.init({duration: 1000})
+AOS.refresh();
     // Add scroll event listener when component mounts
   }, []);
 
@@ -32,7 +35,7 @@ function About() {
     <div className="h-screen bg-[#000000] flex flex-col justify-between">
       <div className="">
         <div className="flex justify-center items-center max-h-[700px]">
-          <div>
+          <div data-aos="fade-right">
             <p className="text-[#EAB308] text-5xl font-semibold font-serif">
               Affordable and quality education
             </p>
@@ -45,10 +48,14 @@ function About() {
               mankind.
             </p>
           </div>
-          <div>
+          <div data-aos="fade-left">
             <img src={tree} alt="tree" />
           </div>
         </div>
+
+
+
+
 
         <div className="bg-black">
           <div className="flex justify-center items-center mt-[3%]">
@@ -69,7 +76,7 @@ function About() {
               </svg>
             </div>
 
-            <div className="max-w-[500px] overflow-hidden">
+            <div className="max-w-[500px] overflow-hidden" data-aos="zoom-in-up">
               {/* Render current influencer */}
               <Carouserslide {...Celeberation[currentInfluencerIndex]} />
             </div>

@@ -1,3 +1,6 @@
+import "aos/dist/aos.css";
+
+import AOS from "aos";
 import Lottie from "lottie-react";
 import { useEffect } from "react";
 
@@ -5,6 +8,8 @@ import animation from "../../assets/Animation - 1708716005607.json";
 
 function Home() {
   useEffect(() => {
+    AOS.init({ duration: 1000 });
+    AOS.refresh();
     // Apply styles to the body to hide overflow
     document.body.style.overflowY = "hidden";
     // Clean up function to remove styles when component unmounts
@@ -15,7 +20,7 @@ function Home() {
   return (
     <div className="bg-[#050505] h-screen">
       <div className="flex justify-center items-center min-h-[700px]">
-        <div>
+        <div data-aos="fade-right">
           <p className="text-5xl font-bold text-white font-serif ">
             Find out best
             <span className="text-[#EAB308]">Online Courses</span>
@@ -39,7 +44,7 @@ function Home() {
             </div>
           </div>
         </div>
-        <div>
+        <div data-aos="fade-left"> 
           <Lottie
             animationData={animation}
             loop={true}

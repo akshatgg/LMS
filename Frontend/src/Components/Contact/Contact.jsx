@@ -36,6 +36,8 @@ function Contact() {
 
   useEffect(() => {
     AOS.init({ duration: 1000 });
+
+    AOS.refresh();
   }, []);
 
   return (

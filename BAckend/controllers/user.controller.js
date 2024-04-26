@@ -96,7 +96,6 @@ const logout = (req, res,next) => {
    res.cookie('token',null,{
     secure:true,
     maxAge:0,
-    httpOnly:true
    })
    res.status(200).json({
     success: true,
@@ -121,3 +120,7 @@ const getProfile = async (req, res,next) => {
 }
 
 export { register, login, logout, getProfile };
+
+
+
+
