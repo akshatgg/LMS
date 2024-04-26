@@ -13,10 +13,7 @@ const Signin = () => {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
 
-  const loginstate = JSON.parse(sessionStorage.getItem("login"));
-  const changelogin = () => {
-    sessionStorage.setItem("login", JSON.stringify(!loginstate));
-  };
+
 
   const handle = async () => {
     if (!email && !password) {
@@ -32,10 +29,14 @@ const Signin = () => {
         const response = await Axios.post("http://localhost:5000/api/auth/user/login", userdata);
          
         if (response) {
+          alert("Signin succcessfully");
           console.log(response);
           console.log(userdata);
           console.log("login successfully");
-          changelogin();
+          sessionStorage.setItem("login",JSON.stringify(true));
+
+
+
         } else {
           console.log("login unsuccessfull");
         }
@@ -46,7 +47,7 @@ const Signin = () => {
     }
   };
   return (
-    <div className="bg-[#1D232A]">
+    <div className="bg-[#000000]">
       <div className="h-screen flex justify-center item-center">
         <div className="flex justify-center mb-[100px]">
           <Lottie

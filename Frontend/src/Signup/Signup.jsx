@@ -4,12 +4,11 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Axios from "axios";
 import Lottie from "lottie-react";
-import  { useEffect, useState } from "react";
+import  { useState } from "react";
 import { Link } from "react-router-dom";
 
+// import { Redirect } from "react-router-dom";
 import animation from "../assets/Animation - 1712774736687.json";
-
-
 
 const Signup = () => {
   const [error, seterror] = useState("");
@@ -19,9 +18,12 @@ const Signup = () => {
   const [name,setname]=useState("");
   const [confirmpass,setconfirmpass]=useState("");
   const [number,setnumber]=useState("");
-
+  const [divert ,setdivert]=useState(false)
   sessionStorage.setItem("login", JSON.stringify(false));
-
+ 
+ 
+  
+  
   const loginstate = JSON.parse(sessionStorage.getItem("login"));
   const changelogin = () => {
     sessionStorage.setItem("login", JSON.stringify(!loginstate));
@@ -56,6 +58,8 @@ const Signup = () => {
         console.log(response);
         console.log(userdata);
         changelogin();
+        setdivert(true);
+       
       } else {
         alert("Sign up failed");
         console.log("Sign up failed");
@@ -69,11 +73,12 @@ const Signup = () => {
   
     
   
-
+  // {divert && <Redirect to="/" />}
 
 
   return (
-    <div className="bg-[#1D232A]">
+
+    <div className="bg-[#000000]">
       <div className="h-screen flex justify-center item-center">
         <div className="flex justify-center">
           <Lottie

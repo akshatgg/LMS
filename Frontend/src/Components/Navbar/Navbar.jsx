@@ -39,23 +39,27 @@ function Navbar() {
 
   useEffect(() => {
     const profile = document.getElementById("profile");
+
     if (!loginstate) {
       profile.style.display = "none";
+    }
+    else{
+      profile.style.display = "block";
+
     }
   }, [loginstate]);
 
 
   const handle=async()=>{
     const response = await Axios.get('http://localhost:5000/api/auth/user/logout');
-    
-    
     sessionStorage.setItem("login", JSON.stringify(false));
 
-        
+    window.location.reload();
+
     
   }
   return (
-    <nav className="bg-[#1D232A] min-h-[110px]">
+    <nav className="bg-[#000000] min-h-[110px]">
       <div className="flex justify-between item">
         <div>
           <img
@@ -66,7 +70,7 @@ function Navbar() {
         </div>
         <div>
           <div className="flex justify-between text-white text-[23px] items-center mr-7 mt-2">
-            <Link to="" className="des mx-6">
+            <Link to="/" className="des mx-6">
               Home
             </Link>
             <Link to="/About" className="des mx-6">
@@ -169,10 +173,10 @@ function Navbar() {
             {showButtons && (
               <>
                 <div className="pl-7 pr-7 rounded-md bg-[#6419E6] hover:bg-[#6419e6d8] text-[18px] mr-3">
-                  <Link to="Signup">Sign up</Link>
+                  <Link to="/Signup">Sign up</Link>
                 </div>
                 <div className="pl-7 pr-7 rounded-md text-[18px]  hover:bg-[#d926a9d8] bg-[#D926A9]">
-                  <Link to="Signin">Sign in</Link>
+                  <Link to="/Signin">Sign in</Link>
                 </div>
               </>
             )}

@@ -1,8 +1,7 @@
 import apperror from "../utils/error.util.js";
 import User from "../models/user.model.js";
-import JWT from "jsonwebtoken";
 import emailvalidator from "email-validator";
-
+import cloudinary from 'cloudinary';
 const cookieOptions = {
     maxAge: 7 * 24 * 60 * 60 * 1000,
     httpOnly: true,
@@ -42,6 +41,42 @@ const register = async (req, res, next) => {
 
             return next(new apperror('Failed to create user', 400));
         }
+
+if(req.file){
+    console.log(req.file);
+   try{
+    const result = await cloudinary.v2.uploader.upload(req.file.path,{
+       folder:'LMS',
+       width:250,
+       height:250,
+       gravity:'faces',
+       crop:'fill'
+    });
+    if(result){
+       user.avatar.public_id =result.public_id;
+       user.avatar.secure_url=result.secure_url;
+
+
+       //remove the file from server aftyer uplaoding in the clloudinary
+       fs.rm(`uploads/${req.file.filename}`)
+    }
+   }
+
+
+   catch(e){
+    console.log(e.message);
+    return next(new apperror(error || 'File not uploaded ,please try again'));
+   }
+}
+
+
+
+
+
+
+
+
+
         await user.save();
         console.log(name,password,email,username);
         user.password=undefined;
@@ -96,7 +131,6 @@ const logout = (req, res,next) => {
    res.cookie('token',null,{
     secure:true,
     maxAge:0,
-    httpOnly:true
    })
    res.status(200).json({
     success: true,
@@ -121,3 +155,7 @@ const getProfile = async (req, res,next) => {
 }
 
 export { register, login, logout, getProfile };
+
+
+
+
