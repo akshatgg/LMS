@@ -1,5 +1,4 @@
-module.exports = () => ({
-  plugins: {
-    autoprefixer: {}
-  }
-})
+export const plugins = {
+  tailwindcss: {},
+  autoprefixer: {},
+};
