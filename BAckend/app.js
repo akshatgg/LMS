@@ -16,14 +16,14 @@ database()
 
 app.use(express.json());
 app.use(cors({
-    // origin: [process.env.CLIENT_URL],
-    // credentials: true
+    origin: [process.env.CLIENT_URL],
+    credentials: true
+
 
     
-    
-        origin: ["https://deploy-mern-frontend.vercel.app"],
-        methods: ["POST", "GET"],
-        credentials: true
+        // origin: ["https://deploy-mern-frontend.vercel.app"],
+        // methods: ["POST", "GET"],
+        // credentials: true
     
 }));
 app.use(cookieParser());
