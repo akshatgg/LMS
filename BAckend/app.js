@@ -16,14 +16,8 @@ database()
 
 app.use(express.json());
 app.use(cors({
-    // origin: [process.env.CLIENT_URL],
-    // credentials: true
-
-    
-        origin: ["https://deploy-mern-frontend.vercel.app"],
-        methods: ["POST", "GET"],
-        credentials: true
-    
+    origin: [process.env.CLIENT_URL],
+    credentials: true
 }));
 app.use(cookieParser());
 app.use(morgan('dev'));
@@ -36,7 +30,7 @@ app.use('/ping', (req, res) => {
 
 
 
-app.listen(5000, () => {
+app.listen(PORT, () => {
     console.log(`App is running on PORT:${PORT}`);
 });
 
