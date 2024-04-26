@@ -6,12 +6,12 @@ import userRoutes from "./routes/user.routes.js";
 import { config } from 'dotenv';
 import cloudinary from 'cloudinary';
 import database from "./config/db.js";
-config();
+// config();
 
 const app = express();
-const PORT = process.env.PORT;
-console.log(PORT)
-database()
+// const PORT = process.env.PORT;
+// console.log(PORT)
+// database()
 
 
 app.use(express.json());
@@ -37,15 +37,13 @@ app.use('/ping', (req, res) => {
 
 
 
-app.listen(5000, () => {
-    console.log(`App is running on PORT:${PORT}`);
-});
 
 
 
-cloudinary.v2.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key:process.env.CLOUDINARY_API_KEY,
-    api_secret:process.env.CLOUDINARY_API_SECRET,
-});
+// cloudinary.v2.config({
+//     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+//     api_key:process.env.CLOUDINARY_API_KEY,
+//     api_secret:process.env.CLOUDINARY_API_SECRET,
+// });
 
+export default app;
