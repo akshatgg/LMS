@@ -16,11 +16,11 @@ database()
 
 const corsconfig={
     origin: [process.env.CLIENT_URL],
-    methods:['GET',"POST","PUT","DELETE"],
+    methods:["GET","POST","PUT","DELETE"],
     credentials: true
 }
 app.use(cors(corsconfig));
-
+app.options("",cors(corsconfig));
 
 app.use(cookieParser());
 app.use(morgan('dev'));
