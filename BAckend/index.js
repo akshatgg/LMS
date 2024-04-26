@@ -7,19 +7,21 @@ import { config } from 'dotenv';
 import cloudinary from 'cloudinary';
 import database from "./config/db.js";
 config();
+app.use(express.json());
 
 const app = express();
 const PORT = process.env.PORT;
 console.log(PORT)
 database()
 
-
-app.use(express.json());
-app.use(cors({
+const corsconfig={
     origin: [process.env.CLIENT_URL],
     methods:['GET',"POST","PUT","DELETE"],
     credentials: true
-}));
+}
+app.use(cors(corsconfig));
+
+
 app.use(cookieParser());
 app.use(morgan('dev'));
 
